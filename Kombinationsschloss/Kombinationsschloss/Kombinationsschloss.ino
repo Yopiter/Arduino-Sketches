@@ -2,7 +2,7 @@ int i;
 int nix=12;
 int Pressed=nix;
 bool aktiv;
-int Kombination[]={1,2,3,5};
+int Kombination[]={1,2,2,3,5};
 int Fortschritt=0;
 int LEDTaste=2;
 int LEDRichtig=12;
