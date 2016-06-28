@@ -2,11 +2,11 @@ int i;
 int nix=12;
 int Pressed=nix;
 bool aktiv;
-int Kombination[]={1,2,3,5};
+int Kombination[]={1,4,2,2,3,5};
 int Fortschritt=0;
 int LEDTaste=2;
 int LEDRichtig=12;
-int Inputs[]={3,4,5,6,8};
+int Inputs[]={3,4,5,6,7};
 int AnzInp=sizeof(Inputs)/sizeof(int);
 int AnzKomb=sizeof(Kombination)/sizeof(int);
 
