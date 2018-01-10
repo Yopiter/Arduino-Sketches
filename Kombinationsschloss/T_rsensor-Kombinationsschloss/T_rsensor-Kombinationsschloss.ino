@@ -5,7 +5,7 @@ bool Eingabe_aktiv;
 int Kombination[]={1,4,2,2,3,5};
 int Fortschritt=0;
 int LEDTaste=2;
-int LEDRichtig=12;
+int LEDAlarm=12;
 int LEDStatus=11;
 int Inputs[]={3,4,5,6,7};
 int Sensor_Open=13;
@@ -15,6 +15,8 @@ bool opened=false;
 int WarteZeit=10000;
 int ZeitGew=0;
 bool eingeschalten=false;
+bool scharf=false;
+bool leaving=false;
 
 void setup() {
   // put your setup code here , to run once:
@@ -27,20 +29,20 @@ void setup() {
   digitalWrite(Sensor_Open, HIGH);
 
   pinMode(LEDTaste, OUTPUT);
-  pinMode(LEDRichtig, OUTPUT);
+  pinMode(LEDAlarm, OUTPUT);
   pinMode(LEDStatus, OUTPUT);
   digitalWrite(LEDTaste, HIGH);
   delay(500);
-  digitalWrite(LEDRichtig, HIGH);
+  digitalWrite(LEDAlarm, HIGH);
   delay(500);
   digitalWrite(LEDTaste, LOW);
   delay(500);
-  digitalWrite(LEDRichtig, LOW);
+  digitalWrite(LEDAlarm, LOW);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(digitalRead(Sensor_Open) && opened==false && eingeschalten){DoorOpened();}
+  if(digitalRead(Sensor_Open) && opened==false && eingeschalten && scharf){DoorOpened();}
   Eingabe_aktiv=false;
   //Prüfung, ob eine Taste gedrückt ist
   for (i=0;i<AnzInp;i++){
@@ -94,7 +96,6 @@ void Kombination_richtig(){
   if(eingeschalten==true){
     eingeschalten=false;
     opened=false;
-    digitalWrite(LEDRichtig, LOW);
     digitalWrite(LEDStatus, LOW);
     Serial.print("Alarmanlage stumpf");
     return;
@@ -109,7 +110,20 @@ void DoorOpened(){
 
 void Alarm(){
   Serial.print("Alarm!!");
-  if(digitalRead(LEDRichtig)==HIGH){digitalWrite(LEDRichtig, LOW);}
-  else {digitalWrite(LEDRichtig, HIGH);}
+  unsigned char i, j ;// define variables
+    for (i = 0; i <80; i++) // Wen a frequency sound
+    {
+      digitalWrite (buzzer, HIGH) ;// send voice
+      delay (1) ;// Delay 1ms
+      digitalWrite (buzzer, LOW) ;// do not send voice
+      delay (1) ;// delay ms
+    }
+    for (i = 0; i <100; i++) // Wen Qie out another frequency sound
+    {
+      digitalWrite (buzzer, HIGH) ;// send voice
+      delay (2) ;// delay 2ms
+      digitalWrite (buzzer, LOW) ;// do not send voice
+      delay (2) ;// delay 2ms
+    }
 }
 
